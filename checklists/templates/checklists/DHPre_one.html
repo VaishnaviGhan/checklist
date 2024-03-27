@@ -1,0 +1,249 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+{% block title %} 
+   {{ page_title }}
+{% endblock title %}
+
+
+{% block formcontent %}
+
+<div class="container">
+  <div class="row justify-content-left">
+      <div class="col-md-11">
+          <div class="card bg-color">
+              <div class="card-body">
+                  
+                      <b>ASHOKA BUILDCON LTD. ASHOKA HOUSE, ASHOKA MARG , ASHOK NAGAR, NASHIK-422011</b>
+                      <hr class="custom-hr">
+                      <b>Execution & Quality Assurance structures Work Instruction</b>
+                      <hr class="custom-hr">
+                      <b>Doc No: WI/CO/DO/PR/EQA(STR)/32   |   REF: QMS 8.5.1,8.5.5  |  PAGE 1 OF 1</b><hr class="custom-hr">
+                      <b>Issue No : 02    |    Issue Date: 01st August 2018</b><hr class="custom-hr">
+                      <b>Rev No : 01    |    Rev Date: 01st August 2018</b><hr class="custom-hr">
+                      <!-- <b>Title :  Check for Structures </b><hr class="custom-hr"> -->
+              </div>
+          </div>
+          </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row justify-content-left">
+      <div class="col-md-11">
+          <div class="card">
+              <div class="card-body text-center">
+                  <div class="row">
+                      <div class="col-md-12 text-left">
+                          <form method="post">
+                              {% csrf_token %}
+                              <h6>Name of ABL Staff (Site Engineer)<b> = </b><b>{{Name_Created_Checklist_by.get_full_name}}</b></h6>
+                              
+                              <!-- Use Bootstrap form classes to structure the form layout -->
+                              <div class="row">
+                                  <div class="col-md-12 text-left">
+                                      {{ form1.CheckList_ID|as_crispy_field }}
+                                  </div>
+                              </div>
+                              <div class="form-row">
+                                  <div class="form-group col-md-3">
+                                      {{ form1.Project_Name|as_crispy_field }}
+                                  </div>
+                                  <div class="form-group col-md-3">
+                                      {{ form1.Site_Name|as_crispy_field }}
+                                  </div>
+                                  
+                                  <div class="form-group col-md-3">
+                                    {{ form1.Contractor|as_crispy_field }}
+                                </div>
+                                <div class="form-group col-md-3">
+                                    {{ form1.Location|as_crispy_field }}
+                                </div>
+                              </div>
+                              <div class="form-row">
+
+                                  <div class="form-group col-md-3">
+                                      {{ form1.Structural_Element|as_crispy_field }}
+                                  </div>
+                                  <div class="form-group col-md-3">
+                                      {{ form1.Chainage|as_crispy_field }}
+                                  </div>  
+                                  <div class="col-3">                                    
+                                    <b>Reporting To ProjectQA :<b>
+                                    <ul>
+                                        {% for item in Project_QA_usernames %}
+                                           <b><li> {{ item }} </li></b>
+                                        {% endfor %}
+                                    </ul> 
+                                   </div>
+                                   <div class="col-12">                                    
+                                    <b>Reporting To Project-Head:</b>
+                                    <ul>
+                                        {% for item in Project_Head_usernames %}
+                                           <b><li> {{ item }} </li></b>
+                                        {% endfor %}
+                                    </ul> 
+                                   </div>
+                                  
+                              </div>
+                          </form>
+ 
+                          <form  id="mainForm" method="post" >
+                              {% csrf_token %}
+                              {% for item, status, comment in checklist_data %}
+                                <tr>
+
+                                  {% for form, form_item in tryingredcolor %} 
+                               
+
+                                  {% if forloop.counter0 == forloop.parentloop.counter0 %}
+                                    <tr>     
+                                      {% if form_item.is_important %}
+                                      <b id="id_question" style="color: rgb(243, 140, 6)">{{ forloop.counter }}] {{ form_item.CheckList_Item_Desc }}</b>
+                                       {% else %}
+                                      <b id="id_question" >{{ forloop.counter }}] {{ form_item.CheckList_Item_Desc }}</b>
+                                       {% endif %}
+                                      <br>  
+                                      <td colspan="3">
+                                        <br>
+
+                                        {% if form_item.answer != status  %}
+                                         <td><b>Site Engineer Status:</b>  
+                                              <b><span style="color: red;">{{ status }}</span></b> </td>
+                                        <td>
+                                          {% elif status == 'Not_Observed' %}
+                                              <span style="color: red;">{{ status }}</span>
+                                          {% else %}
+                                          <b>Site Engineer Status:</b>{{ status }}
+                                          {% endif %}</td><br>
+  
+                                        <td><b>Site Engineer Comment:    </b>{{ comment }}</td><br>
+ 
+                                        <div class="row-center">
+                                          <div class="form-group col-md-12 mb-0">
+                                            <div class="horizontal-radio">
+                                              {{ form.Site_DH_EQA_Status|as_crispy_field }}
+                                            </div>
+                                            {{ form.Site_DH_EQA_Comment|as_crispy_field }}
+                                          </div>
+                                        </div>
+                                      </td>
+                                    </tr>
+                                    <hr>
+                                  {% endif %}
+                                  {% endfor %}
+
+                                {% endfor %}
+                              <!-- <div class="container-fluid" style="overflow-y: auto; height: 100px;"> -->
+                                <div class="col"> 
+                                  <div class="row-center">
+                                      <div class="form-group col-md-12 mb-0">                                
+                              {{formA}}
+                              </div>
+                              </div>
+                              </div>
+                                 
+                              <button type="button" class="btn btn-primary" id="previewButton">Preview</button>
+                              <input type="submit" class="btn btn-primary" value="Save">
+                             
+                              <button type="button" class="btn btn-danger" id="rejectButton" data-toggle="modal" name="reject" data-target="#rejectModal">Reject</button>
+                            </form>
+                        
+                            <hr>
+
+                          
+                            
+   
+                        
+
+<!-- Modal for rejection form -->
+<div class="modal" id="rejectModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Reject Checklist</h5>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <form id="rejectForm" method="post" action="{% url 'DHEReject' pk=checklist.pk %}">
+        {% csrf_token %}
+        <div class="modal-body">
+          <div class="form-group col-md-12 mb-0">
+           
+              {{ formR.rejection_comment|as_crispy_field }}
+            </div>
+          
+        </div>
+        <div class="modal-footer">
+          <input type="submit" class="btn btn-danger" value="Confirm Rejection">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+
+
+<!-- Modal -->
+  <div class="modal" id="previewModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title">Form Preview</h5>
+      <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+      <p id="previewContent"></p>
+      </div>
+      <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+          </div>
+        </div>
+      </div>
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function() {
+    document.getElementById("backbutton").style.display = "none";
+});
+
+  // Function to capture form data and display it in the modal
+  function previewForm() {
+      var formData = new FormData(document.getElementById("mainForm"));
+      var previewContent = "<b>Preview:</b><br>";
+      var questions = document.querySelectorAll('#id_question');
+      
+      // Interleave questions with form data
+      for (var i = 0; i < questions.length; i++) {
+          var question = questions[i];
+          previewContent += "<b>Question " + (i + 1) + ":</b> " + question.textContent + "<br>";
+          
+          // Add form data corresponding to this question
+          var formPrefix = "form" + (i + 1) + "-";
+          formData.forEach(function(value, key){
+              if (key.startsWith(formPrefix)) {
+                  // Remove the prefix before adding to preview
+                  var cleanKey = key.substring(formPrefix.length);
+                  previewContent += "<b>" + cleanKey + ":</b> " + value + "<br>";
+              }
+          });
+          previewContent += "<hr>";
+      }
+      
+      document.getElementById("previewContent").innerHTML = previewContent;
+      $('#previewModal').modal('show');
+  }
+
+  // Event listener for the Preview button
+  document.getElementById("previewButton").addEventListener("click", previewForm);
+  
+
+</script>
+
+
+      {% endblock %}
+
+
+                              

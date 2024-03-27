@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %} 
+   {{ page_title }}
+{% endblock title %}
+
+{% block formcontent %}
+<div class="container-fluid mt-4">
+    <div class="">
+        <h4 class="text-center">ProjectHead_Workspace</h4>
+
+    </div>
+
+    <!-- <div class="card"> -->
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <!-- <div class="card-body"> -->
+           
+            <!-- <div class="table-responsive"> -->
+                <table class="table table-striped table-bordered table-responsive-lg custom-table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Doc ID</th>
+                            <th scope="col">CheckList ID</th>
+                            <th scope="col">Created By</th>
+                            <th scope="col">Created On</th>
+                            <th scope="col">Project Name</th>
+                            <th scope="col">Site Name</th>
+                            <th scope="col">Contractor</th>
+                            <th scope="col">Location</th>
+                            <th scope="col">Structural Element</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for checklist in checklists %}
+                        {% if checklist.Doc_ID in list %}
+                        <tr style="background: #f89d9d;">
+                        {% else %}
+                            <tr>
+                        {% endif %}
+                            <td>{{ checklist.Doc_ID }}</td>
+                            <td>{{ checklist.CheckList_ID }}</td>
+                            <td>{{ checklist.Name_Of_ABLStaff }}</td>
+                            <td>{{ checklist.inspection_Start_Date }}</td>
+                            <td>{{ checklist.Project_Name }}</td>
+                            <td>{{ checklist.Site_Name }}</td>
+                            <td>{{ checklist.Contractor }}</td>
+                            <td>{{ checklist.Location }}</td>
+                            <td>{{ checklist.Structural_Element }}</td>
+                            <td>
+                                {% if checklist.checklist_status == 'Completed_By_SiteEngineer & Pending_By_DHEQA' %}
+                               
+                                <span class="badge badge-info">Completed By SiteEngineer</span>
+                                <span class="badge badge-danger">Pending By DHEQA</span>
+
+                                {% elif checklist.checklist_status == 'Completed_By_SiteEngineer & Active_At_DHEQA' %}
+                                  
+                                    <span class="badge badge-info">Completed By SiteEngineer </span>
+                                    <span class="badge badge-warning"> Active At DHEQA</span> 
+
+                                {% elif checklist.checklist_status == 'PQA and ProjectHead Queue' %}
+                                   
+                                    <span class="badge badge-warning">PQA and ProjectHead Queue</span>
+                                  
+                                {% elif checklist.checklist_status == 'Completed_By_DHEQA & Active_At_ProjectQA' %}
+                                  
+                                    <span class="badge badge-info">Completed By DHEQA </span>
+                                    <span class="badge badge-warning">Active At ProjectQA</span>
+
+                                {% elif checklist.checklist_status == 'Completed_By_DHEQA & Active_At_ProjectHead' %}
+                        
+                                        <span class="badge badge-info">Completed By DHEQA </span>
+                                        <span class="badge badge-warning">Active_At_ProjectHead</span>
+
+                               
+                                {% elif checklist.checklist_status == 'Completed_By_ProjectQA & Active_At_ProjectHead' %}
+                                   
+                                    <span class="badge badge-success">Completed By ProjectQA</span>
+                                    
+                                {% elif checklist.checklist_status == 'Completed_By_ProjectHead' %}
+                                    <span class="badge badge-success">Completed By ProjectHead</span>
+                                {% elif checklist.checklist_status == 'Rejected' %}
+                                    <span class="badge badge-danger">Rejected</span> 
+                                
+                             
+                                
+                                {% endif %}
+                            
+                            </td>
+                            <td><small><a href="{% url 'project_head' checklist.pk %}">Audit</a></small></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+          
+  
+</div>
+
+{% endblock %}
+
+
+
+
+
+   

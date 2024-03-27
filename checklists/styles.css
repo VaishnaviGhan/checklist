@@ -1,0 +1,95 @@
+
+input { font-size: medium!important; }
+button { font-size: medium!important; }
+label { font-size: medium!important; }
+
+#usercmds a {
+    border: thin gray solid;
+    font-size: 15px;
+    color: #cdeef1;
+    float: right;
+  }
+
+.navbar-nav { font-size: 15px;
+}
+.dropdown-menu { font-size: 15px;
+}
+.dropdown-item { color:darkblue; 
+}  
+
+.custom-hr {
+  margin-top: 0;
+  margin-bottom: 0;
+  border-top: 1px solid #000000;
+}
+.center-text {
+  text-align: center;
+}
+
+.row-center .form-check {
+      display: inline-block;
+      margin-right: 20px; /* Adjust this value as needed to control the spacing between radio buttons */
+  }
+
+.horizontal-radio {
+      display: flex; /* Use flexbox to arrange radio buttons horizontally */
+    }
+    
+    /* Optional: Add some spacing between radio buttons */
+.horizontal-radio input[type="radio"] + label {
+      margin-right: 10px;
+    }
+    .bordered-row {
+        border: 1px solid black;
+      }
+hr{
+    height:1px;
+    background-color:green;
+}
+.hrbold{
+    color: darkred;
+    font-weight: bold;
+}
+
+body {
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; /* Replace with your desired font-family */
+        font-size: 14px;
+    } 
+
+.red-label {
+        color: darkred;
+    }
+
+table.table.table-hover tbody tr {
+        margin-bottom: 0;  
+       
+    }
+    .img-container {
+        text-align: center;
+        display: flex;
+        justify-content: center;
+    }
+    .vaishu {
+        max-width: 50%;
+        height: 50%
+
+    }
+    @media (max-width: 767px) {
+        .dropdown-menu {
+            position: relative; /* or any other positioning that suits your design */
+            width: 100%;
+        }
+    
+        .dropdown-item {
+            display: block;
+            width: 100%;
+            box-sizing: border-box; /* Ensures padding and border are included in width */
+        }
+    }
+    .btn-extra-small {
+        padding: 2px 5px; /* You can adjust these values as needed */
+        font-size: 12px; /* You can adjust this value as needed */
+    }
+    .custom-table td, .custom-table th {
+        padding: 5px; /* You can adjust this value as needed */
+    }

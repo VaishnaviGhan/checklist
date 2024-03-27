@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+{% block title %} 
+   {{ page_title }}
+{% endblock title %}
+
+
+{% block formcontent %}
+
+<div class="container">
+  <div class="row justify-content-left">
+      <div class="col-md-11">
+          <div class="card bg-color">
+              <div class="card-body">
+                  
+                      <b>ASHOKA BUILDCON LTD. ASHOKA HOUSE, ASHOKA MARG , ASHOK NAGAR, NASHIK-422011</b>
+                      <hr class="custom-hr">
+                      <b>Execution & Quality Assurance structures Work Instruction</b>
+                      <hr class="custom-hr">
+                      <b>Doc No: WI/CO/DO/PR/EQA(STR)/32   |   REF: QMS 8.5.1,8.5.5  |  PAGE 1 OF 1</b><hr class="custom-hr">
+                      <b>Issue No : 02    |    Issue Date: 01st August 2018</b><hr class="custom-hr">
+                      <b>Rev No : 01    |    Rev Date: 01st August 2018</b><hr class="custom-hr">
+                      <!-- <b>Title :  Check for Structures </b><hr class="custom-hr"> -->
+              </div>
+          </div>
+          </div>
+  </div>
+</div>
+<div class="container">
+  <div class="row justify-content-left">
+      <div class="col-md-11">
+          <div class="card bg-color">
+              <div class="card-body">
+                <div class="row">
+                  <h6>Name of ABL Staff (Site Engineer)<b> = </b><b>{{checklist.Name_Of_ABLStaff.get_full_name}}</b></h6></div>
+                  <div class="row">
+                                              
+                </div>
+              
+                
+                <hr>
+                <div class="row">
+                  <div class="col-3">
+        <b>Checklist Doc_ID :</b><p><small>{{checklist.Doc_ID}}</small></p></div>
+        <div class="col-3">
+        <b>Checklist Name :</b><p><small>{{checklist.CheckList_ID}}</small></p></div>
+        <div class="col-3">
+          <b>Project_Name :</b><p><small>{{checklist.Project_Name}}</small></p></div>
+          <div class="col-3">
+            <b>Site_Name :</b><p><small>{{checklist.Site_Name}}</small></p></div>
+
+      </div>
+      <div class="row">
+        <div class="col-3">
+<b>Name_Of_ABLStaff :</b><p><small>{{checklist.Name_Of_ABLStaff}}</small></p></div>
+<div class="col-3">
+<b>inspection_Start_Date :</b><p><small>{{checklist.inspection_Start_Date}}</small></p></div>
+<div class="col-3">
+<b>Contractor :</b><p><small>{{checklist.Contractor}}</small></p></div>
+<div class="col-3">
+  <b>Location :</b><p><small>{{checklist.Location}}</small></p></div>
+
+</div>
+<div class="row">
+  <div class="col-3">
+<b>Structural_Element :</b><p><small>{{checklist.Structural_Element}}</small></p></div>
+<div class="col-3">
+<b>Chainage :</b><p><small>{{checklist.Chainage}}</small></p></div>
+</div>
+<hr>
+{% for question, enggstatus ,enggcomm,dhstatus,dhcomment in  checklist_data %}
+<b style="font-size:15px">{{forloop.counter}}&#93; </b>    {{question}}<br>
+Site Engineer Status: <b> {{enggstatus}}</b><br>
+Site Engineer Comment: <b>{{enggcomm}}</b><br>
+DH Status:<b> {{dhstatus}}</b><br>
+DH Comment:<b>{{dhcomment}}</b><br><hr>
+{% endfor %}
+<div class="row">
+  <div class="col-12">
+<!-- Project QA_status :<p><b>{{checklist.Quality_Engineer_status}}</b></p></div><hr> -->
+Well_implemented_Quality_Checks :<p><b>{{checklist.Well_implimented_Quality_Checks}}</b></p><hr></div>
+<div class="col-12">
+Fairly_implemented_Quality_Checks :<p><b>{{checklist.Fairly_implimented_Quality_Checks}}</b></p><hr></div>
+<div class="col-12" style="color:red;">
+Poorly_implemented_Quality_Checks :<p><b>{{checklist.Poorly_implimented_Quality_Checks}}</b></p><hr></div>
+<div class="col-12">
+Project QA-Comment : <p><b>{{checklist.Quality_Engineer_Comment}}</b></p></div>
+
+</div>
+<hr>
+<form method="POST">
+ 
+  {% csrf_token %}
+  {{ form }}
+  <input type="submit" class="btn btn-primary" value="Save and Close Checklist">
+
+</form>
+</div>
+
+
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+  
+{% endblock %}

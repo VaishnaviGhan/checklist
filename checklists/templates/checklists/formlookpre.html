@@ -1,0 +1,172 @@
+
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block title %} 
+   {{ page_title }}
+{% endblock title %}
+
+{% block formcontent %}
+<style>
+.preview-content {
+    margin-bottom: 10px;
+}
+
+.preview-content label {
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.preview-content p {
+    margin-bottom: 5px;
+}
+</style>
+<div class="text-center"><h2 style="color:darkcyan;font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;"> {{ app_title }} </h2></div>
+
+<div class="container">
+    <div class="row justify-content-left">
+        <div class="col-md-12">
+            <div class="card ">
+                <div class="card-body">
+                    
+                        <b>ASHOKA BUILDCON LTD. ASHOKA HOUSE, ASHOKA MARG , ASHOK NAGAR, NASHIK-422011</b>
+                        <hr class="custom-hr">
+                        <b>Execution & Quality Assurance structures Work Instruction</b>
+                        <hr class="custom-hr">
+                        <b>Doc No: WI/CO/DO/PR/EQA(STR)/32   |   REF: QMS 8.5.1,8.5.5  |  PAGE 1 OF 1</b><hr class="custom-hr">
+                        <b>Issue No : 02    |    Issue Date: 01st August 2018</b><hr class="custom-hr">
+                        <b>Rev No : 01    |    Rev Date: 01st August 2018</b><hr class="custom-hr">
+                        <!-- <b>Title :  Check for Structures </b><hr class="custom-hr"> -->
+                </div>
+            </div>
+            </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row justify-content-left">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body text-center">
+                    <div class="row">
+                        <div class="col-md-12 text-left">
+                            <form method="post">
+                                {% csrf_token %}
+
+                                <!-- Use Bootstrap form classes to structure the form layout -->
+                                
+                                <div class="row">
+                                    <div class="col-md-12 text-left">
+                                        <h6>Name of ABL Staff :  {{request.user.get_full_name}}</h6>
+                                    </div>
+
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12 text-left">
+                                        {{ form.CheckList_ID|as_crispy_field }}
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-3">
+                                        {{ form.Project_Name|as_crispy_field }}
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        {{ form.Site_Name|as_crispy_field }}
+                                    </div>
+
+                                    <div class="form-group col-md-3">
+                                        {{ form.Contractor|as_crispy_field }}
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        {{ form.Location|as_crispy_field }}
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+  
+                                    <div class="form-group col-md-3">
+                                        {{ form.Structural_Element|as_crispy_field }}
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        {{ form.Chainage|as_crispy_field }}
+                                    </div>
+                                    <div class="col-3">                                    
+                                        <b>Reporting To :</b>
+                                 <ul>
+                                     {% for item in usernames %}
+                                        <b><li> {{ item }} </li></b>    
+                                     {% endfor %}
+                                 </ul> 
+                                </div>
+
+                                </div>
+
+                                <button type="button" class="btn btn-primary" id="previewButton">Preview</button>
+                                <button type="submit" class="btn btn-primary" id="saveButton">Save</button>
+                            </form>
+
+                            {% if messages %}
+                            <div class="alert alert-success mt-3" role="alert">
+                            {% for message in messages %}
+                            {{ message }}
+                            {% endfor %}
+                            </div>
+                          {% endif %}
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Add a modal -->
+<div class="modal fade" id="previewModal" tabindex="-1" role="dialog" aria-labelledby="previewModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="previewModalLabel">Preview</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" id="previewBody">
+          <!-- Preview content will be displayed here -->
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <script>
+    // JavaScript to handle form submission and preview
+    $(document).ready(function() {
+      $('#previewButton').click(function() {
+        var previewContent = '';
+  
+        // Fetch form data and construct the preview content
+       
+previewContent += '<div class="form-group"><label><strong>Checklist Name:</strong></label>' + $('#id_CheckList_ID option:selected').text() + '</div>';
+previewContent += '<div class="form-group"><label><strong>Project Name:</strong></label>' + $('#id_Project_Name option:selected').text() + '</div>';
+previewContent += '<div class="form-group"><label><strong>Site Name:</strong></label>' + $('#id_Site_Name option:selected').text() + '</div>';
+previewContent += '<div class="form-group"><label><strong>Contractor:</strong></label>' + $('#id_Contractor').val() + '</div>';
+previewContent += '<div class="form-group"><label><strong>Location:</strong></label>' + $('#id_Location').val() + '</div>';
+previewContent += '<div class="form-group"><label><strong>Structural Element:</strong></label>' + $('#id_Structural_Element option:selected').text() + '</div>';
+previewContent += '<div class="form-group"><label><strong>Chainage:</strong></label>' + $('#id_Chainage').val() + '</div>';
+
+        // Add more lines for other form fields
+  
+        // Update the modal body with the constructed preview content
+        $('#previewBody').html(previewContent);
+  
+        // Show the modal
+        $('#previewModal').modal('show');
+      });
+    });
+  </script>
+  
+
+
+{% endblock %}
+

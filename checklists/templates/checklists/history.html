@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %} 
+   {{ page_title }}
+{% endblock title %}
+
+{% block formcontent %}
+<div class="container-fluid mt-4">
+    <div class="">
+        <h4 class="text-center">LogData Of Project</h4>
+    </div>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        
+                <table class="table table-striped table-bordered table-responsive-lg custom-table">
+                    <thead>
+                        <tr> 
+                            <th scope="col"> History ID</th>
+                            <th scope="col"> Doc ID</th>
+                            <th scope="col"> Comment </th>
+                            <th scope="col"> Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for his in history %}
+                        <tr>
+                            <td>{{ his.History_ID }}</td>
+                            <td>{{ his.Doc_ID }}</td>
+                            <td>{{ his.Comment }}</td>
+                            <td>{{ his.Date_Time|date:"j-M-Y g:i a" }}</td>
+                            
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+     
+</div>
+
+{% endblock %}
+
+
+        
+       
+               
